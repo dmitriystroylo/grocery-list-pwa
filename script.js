@@ -1,8 +1,29 @@
 const input = document.getElementById('itemInput');
 const addButton = document.getElementById('addButton');
 const list = document.getElementById('groceryList');
+const langSwitch = document.getElementById('langSwitch');
+const title = document.getElementById('title');
 
-// Load from local storage
+let lang = localStorage.getItem('preferredLang') || (navigator.language.startsWith('ru') ? 'ru' : 'en');
+langSwitch.value = lang;
+applyTranslations();
+
+langSwitch.addEventListener('change', (e) => {
+  lang = e.target.value;
+  localStorage.setItem('preferredLang', lang);
+  applyTranslations();
+});
+
+function applyTranslations() {
+  const t = translations[lang];
+  title.textContent = t.title;
+  input.placeholder = t.placeholder;
+  addButton.textContent = t.add;
+
+  Array.from(document.querySelectorAll('.cross-button')).forEach(btn => btn.textContent = t.cross);
+  Array.from(document.querySelectorAll('.remove-button')).forEach(btn => btn.textContent = t.remove);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const saved = JSON.parse(localStorage.getItem('groceryList')) || [];
   saved.forEach(({ text, crossed }) => addItem(text, crossed));
@@ -26,14 +47,16 @@ function addItem(text, crossedOut) {
   btnContainer.className = 'item-buttons';
 
   const crossBtn = document.createElement('button');
-  crossBtn.textContent = 'Cross Out';
+  crossBtn.className = 'cross-button';
+  crossBtn.textContent = translations[lang].cross;
   crossBtn.onclick = () => {
     li.classList.toggle('crossed');
     saveList();
   };
 
   const removeBtn = document.createElement('button');
-  removeBtn.textContent = 'Remove';
+  removeBtn.className = 'remove-button';
+  removeBtn.textContent = translations[lang].remove;
   removeBtn.onclick = () => {
     li.remove();
     saveList();
@@ -52,7 +75,6 @@ function saveList() {
   localStorage.setItem('groceryList', JSON.stringify(items));
 }
 
-// Register service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
