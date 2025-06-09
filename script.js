@@ -2,32 +2,26 @@ const input = document.getElementById('itemInput');
 const addButton = document.getElementById('addButton');
 const list = document.getElementById('groceryList');
 
-// Add item on button click
 addButton.addEventListener('click', () => {
   const value = input.value.trim();
   if (value !== '') {
-    addItem(value, false);
+    addItem(value);
     saveList();
     input.value = '';
   }
 });
 
-// Add item on Enter key press
-input.addEventListener('keydown', function (e) {
-  if (e.key === 'Enter') {
-    addButton.click();
-  }
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') addButton.click();
 });
 
-// Load from local storage
 document.addEventListener('DOMContentLoaded', () => {
   const saved = JSON.parse(localStorage.getItem('groceryList')) || [];
-  saved.forEach(({ text, crossed }) => addItem(text, crossed));
+  saved.forEach(text => addItem(text));
 });
 
-function addItem(text, crossedOut) {
+function addItem(text) {
   const li = document.createElement('li');
-  if (crossedOut) li.classList.add('crossed');
   li.textContent = text;
 
   const btnContainer = document.createElement('div');
@@ -35,10 +29,7 @@ function addItem(text, crossedOut) {
 
   const crossBtn = document.createElement('button');
   crossBtn.textContent = 'Cross Out';
-  crossBtn.onclick = () => {
-    li.classList.toggle('crossed');
-    saveList();
-  };
+  crossBtn.onclick = () => li.classList.toggle('crossed');
 
   const removeBtn = document.createElement('button');
   removeBtn.textContent = 'Remove';
@@ -53,27 +44,10 @@ function addItem(text, crossedOut) {
 }
 
 function saveList() {
-  const items = Array.from(list.children).map(li => ({
-    text: li.firstChild.textContent,
-    crossed: li.classList.contains('crossed')
-  }));
+  const items = Array.from(list.children).map(li => li.firstChild.textContent);
   localStorage.setItem('groceryList', JSON.stringify(items));
 }
 
-// Register service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
-
-// Help popup logic
-const helpBtn = document.getElementById('helpBtn');
-const helpPopup = document.getElementById('helpPopup');
-const closeHelp = document.getElementById('closeHelp');
-
-helpBtn.addEventListener('click', () => {
-  helpPopup.classList.remove('hidden');
-});
-
-closeHelp.addEventListener('click', () => {
-  helpPopup.classList.add('hidden');
-});

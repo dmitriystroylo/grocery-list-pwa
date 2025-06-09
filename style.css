@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+
 body {
   font-family: sans-serif;
   text-align: center;
   padding: 2rem;
-  background: #f8f9fa;
+  background-color: #fcf6e0;
+  background-image: linear-gradient(#e6dbb9 1px, transparent 1px), 
+                    linear-gradient(90deg, #e6dbb9 1px, transparent 1px);
+  background-size: 25px 25px;
+  border: 2px dashed #d4a373;
+  border-radius: 8px;
 }
 
 #inputSection {
@@ -13,13 +20,25 @@ input[type=text] {
   padding: 0.8rem;
   width: 60%;
   font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
 button {
+  background-color: #8ecae6;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px #219ebc;
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
   margin-left: 0.5rem;
   cursor: pointer;
+  transition: transform 0.1s;
+}
+
+button:active {
+  transform: translateY(4px);
+  box-shadow: none;
 }
 
 ul#groceryList {
@@ -28,59 +47,28 @@ ul#groceryList {
 }
 
 li {
-  background: white;
+  background-color: #fff8dc;
   margin: 0.5rem auto;
   padding: 1rem;
   width: 80%;
   max-width: 500px;
   border-radius: 8px;
+  font-family: 'Caveat', cursive;
+  font-size: 1.3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  transform: rotate(-1deg);
+  transition: transform 0.2s;
 }
 
-li.crossed {
-  text-decoration: line-through;
-  opacity: 0.6;
+li:hover {
+  transform: rotate(0deg);
 }
 
 .item-buttons button {
   margin-left: 0.5rem;
-}
-
-#helpBtn {
-  margin-left: 1rem;
-  font-size: 1rem;
-  padding: 0.3rem 0.6rem;
-  border-radius: 50%;
-  background-color: #ccc;
-  cursor: pointer;
-}
-
-#helpPopup {
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  padding: 1.5rem;
-  border: 2px solid #888;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  max-width: 300px;
-  z-index: 1000;
-}
-
-.hidden {
-  display: none;
-}
-
-#helpPopup .help-content {
-  text-align: left;
-}
-
-#closeHelp {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
 }
