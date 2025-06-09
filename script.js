@@ -17,19 +17,23 @@ input.addEventListener('keydown', (e) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const saved = JSON.parse(localStorage.getItem('groceryList')) || [];
-  saved.forEach(text => addItem(text));
+  saved.forEach(({text, crossed}) => addItem(text, crossed));
 });
 
-function addItem(text) {
+function addItem(text, crossedOut = false) {
   const li = document.createElement('li');
   li.textContent = text;
+  if (crossedOut) li.classList.add('crossed');
 
   const btnContainer = document.createElement('div');
   btnContainer.className = 'item-buttons';
 
   const crossBtn = document.createElement('button');
   crossBtn.textContent = 'Cross Out';
-  crossBtn.onclick = () => li.classList.toggle('crossed');
+  crossBtn.onclick = () => {
+    li.classList.toggle('crossed');
+    saveList();
+  };
 
   const removeBtn = document.createElement('button');
   removeBtn.textContent = 'Remove';
@@ -44,7 +48,10 @@ function addItem(text) {
 }
 
 function saveList() {
-  const items = Array.from(list.children).map(li => li.firstChild.textContent);
+  const items = Array.from(list.children).map(li => ({
+    text: li.firstChild.textContent,
+    crossed: li.classList.contains('crossed')
+  }));
   localStorage.setItem('groceryList', JSON.stringify(items));
 }
 

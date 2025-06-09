@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 body {
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-align: center;
   padding: 2rem;
   background-color: #fcf6e0;
@@ -53,22 +53,20 @@ li {
   width: 80%;
   max-width: 500px;
   border-radius: 8px;
-  font-family: 'Caveat', cursive;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  transform: rotate(-1deg);
-  transition: transform 0.2s;
-}
-
-li:hover {
-  transform: rotate(0deg);
 }
 
 .item-buttons button {
   margin-left: 0.5rem;
   padding: 0.4rem 0.8rem;
   font-size: 0.9rem;
+}
+
+li.crossed {
+  text-decoration: line-through !important;
+  opacity: 0.6;
 }
