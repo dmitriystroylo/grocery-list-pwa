@@ -5,15 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="apple-touch-icon" href="icon.png" />
   <title>Grocery List</title>
 </head>
 <body>
-  <h1>Grocery List</h1>
+  <h1 id="title">
+    Grocery List
+    <button id="helpBtn" title="Help">?</button>
+  </h1>
+
+  <div id="helpPopup" class="hidden">
+    <div class="help-content">
+      <p>This is a grocery list app.<br>
+      Type an item and click "Add" or press Enter.<br>
+      Use "Cross Out" to mark it done or "Remove" to delete it.</p>
+      <button id="closeHelp">Close</button>
+    </div>
+  </div>
+
   <div id="inputSection">
     <input type="text" id="itemInput" placeholder="Enter grocery item" />
     <button id="addButton">Add</button>
   </div>
+
   <ul id="groceryList"></ul>
+
   <script src="script.js"></script>
 </body>
 </html>

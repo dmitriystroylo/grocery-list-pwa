@@ -58,3 +58,16 @@ function saveList() {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
+
+// Help popup logic
+const helpBtn = document.getElementById('helpBtn');
+const helpPopup = document.getElementById('helpPopup');
+const closeHelp = document.getElementById('closeHelp');
+
+helpBtn.addEventListener('click', () => {
+  helpPopup.classList.remove('hidden');
+});
+
+closeHelp.addEventListener('click', () => {
+  helpPopup.classList.add('hidden');
+});
