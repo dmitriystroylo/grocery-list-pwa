@@ -38,6 +38,13 @@ addButton.addEventListener('click', () => {
   }
 });
 
+// NEW: Pressing Enter also adds item
+input.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    addButton.click();
+  }
+});
+
 function addItem(text, crossedOut) {
   const li = document.createElement('li');
   if (crossedOut) li.classList.add('crossed');
