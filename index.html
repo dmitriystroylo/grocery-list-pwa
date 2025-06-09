@@ -8,12 +8,19 @@
   <title>Grocery List</title>
 </head>
 <body>
-  <select id="langSwitch">
-    <option value="en">English</option>
-    <option value="ru">Русский</option>
-  </select>
+  <h1 id="title">
+    Grocery List
+    <button id="helpBtn" title="Help">?</button>
+  </h1>
 
-  <h1 id="title">Grocery List</h1>
+  <div id="helpPopup" class="hidden">
+    <div class="help-content">
+      <p>This is a grocery list app.<br>
+      Type an item and click "Add" or press Enter.<br>
+      Use "Cross Out" to mark it done or "Remove" to delete it.</p>
+      <button id="closeHelp">Close</button>
+    </div>
+  </div>
 
   <div id="inputSection">
     <input type="text" id="itemInput" placeholder="Enter grocery item" />
@@ -22,7 +29,6 @@
 
   <ul id="groceryList"></ul>
 
-  <script src="translations.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

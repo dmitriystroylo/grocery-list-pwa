@@ -1,34 +1,8 @@
 const input = document.getElementById('itemInput');
 const addButton = document.getElementById('addButton');
 const list = document.getElementById('groceryList');
-const langSwitch = document.getElementById('langSwitch');
-const title = document.getElementById('title');
 
-let lang = localStorage.getItem('preferredLang') || (navigator.language.startsWith('ru') ? 'ru' : 'en');
-langSwitch.value = lang;
-applyTranslations();
-
-langSwitch.addEventListener('change', (e) => {
-  lang = e.target.value;
-  localStorage.setItem('preferredLang', lang);
-  applyTranslations();
-});
-
-function applyTranslations() {
-  const t = translations[lang];
-  title.textContent = t.title;
-  input.placeholder = t.placeholder;
-  addButton.textContent = t.add;
-
-  Array.from(document.querySelectorAll('.cross-button')).forEach(btn => btn.textContent = t.cross);
-  Array.from(document.querySelectorAll('.remove-button')).forEach(btn => btn.textContent = t.remove);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const saved = JSON.parse(localStorage.getItem('groceryList')) || [];
-  saved.forEach(({ text, crossed }) => addItem(text, crossed));
-});
-
+// Add item on button click
 addButton.addEventListener('click', () => {
   const value = input.value.trim();
   if (value !== '') {
@@ -38,11 +12,17 @@ addButton.addEventListener('click', () => {
   }
 });
 
-// NEW: Pressing Enter also adds item
+// Add item on Enter key press
 input.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
     addButton.click();
   }
+});
+
+// Load from local storage
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = JSON.parse(localStorage.getItem('groceryList')) || [];
+  saved.forEach(({ text, crossed }) => addItem(text, crossed));
 });
 
 function addItem(text, crossedOut) {
@@ -54,16 +34,14 @@ function addItem(text, crossedOut) {
   btnContainer.className = 'item-buttons';
 
   const crossBtn = document.createElement('button');
-  crossBtn.className = 'cross-button';
-  crossBtn.textContent = translations[lang].cross;
+  crossBtn.textContent = 'Cross Out';
   crossBtn.onclick = () => {
     li.classList.toggle('crossed');
     saveList();
   };
 
   const removeBtn = document.createElement('button');
-  removeBtn.className = 'remove-button';
-  removeBtn.textContent = translations[lang].remove;
+  removeBtn.textContent = 'Remove';
   removeBtn.onclick = () => {
     li.remove();
     saveList();
@@ -82,6 +60,20 @@ function saveList() {
   localStorage.setItem('groceryList', JSON.stringify(items));
 }
 
+// Register service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
+
+// Help popup logic
+const helpBtn = document.getElementById('helpBtn');
+const helpPopup = document.getElementById('helpPopup');
+const closeHelp = document.getElementById('closeHelp');
+
+helpBtn.addEventListener('click', () => {
+  helpPopup.classList.remove('hidden');
+});
+
+closeHelp.addEventListener('click', () => {
+  helpPopup.classList.add('hidden');
+});
