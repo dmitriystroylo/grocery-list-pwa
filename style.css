@@ -13,12 +13,19 @@ body {
 }
 
 #inputSection {
-  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+  max-width: 90%;
+  margin: 0 auto 2rem;
 }
 
-input[type=text] {
+#itemInput {
+  flex: 1;
+  min-width: 0;
   padding: 0.8rem;
-  width: 60%;
   font-size: 1rem;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -31,7 +38,6 @@ button {
   box-shadow: 0 4px #219ebc;
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
-  margin-left: 0.5rem;
   cursor: pointer;
   transition: transform 0.1s;
 }
@@ -61,9 +67,10 @@ li {
 }
 
 .item-buttons button {
-  margin-left: 0.5rem;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
+  margin-left: 0.3rem;
+  padding: 0.3rem 0.5rem;
+  font-size: 1.1rem;
+  border-radius: 6px;
 }
 
 li.crossed {

@@ -29,14 +29,16 @@ function addItem(text, crossedOut = false) {
   btnContainer.className = 'item-buttons';
 
   const crossBtn = document.createElement('button');
-  crossBtn.textContent = 'Cross Out';
+  crossBtn.textContent = '✅';
+  crossBtn.title = 'Cross Out';
   crossBtn.onclick = () => {
     li.classList.toggle('crossed');
     saveList();
   };
 
   const removeBtn = document.createElement('button');
-  removeBtn.textContent = 'Remove';
+  removeBtn.textContent = '❌';
+  removeBtn.title = 'Remove';
   removeBtn.onclick = () => {
     li.remove();
     saveList();
